@@ -273,6 +273,19 @@
 \newcommand{\@college}{}
 \newcommand{\college}[1]{\renewcommand{\@college}{#1}}
 
+% TCD: Degree title
+\newcommand{\@degreetitle}{}
+\newcommand{\degreetitle}[1]{\renewcommand{\@degreetitle}{#1}}
+
+% TCD: Degree year
+\newcommand{\@degreeyear}{}
+\newcommand{\degreeyear}[1]{\renewcommand{\@degreeyear}{#1}}
+
+% TCD: Supervisor
+\newcommand{\@supervisor}{}
+\newcommand{\supervisor}[1]{\renewcommand{\@supervisor}{#1}}
+
+
 % DOCVAR: keywords (These keywords will appear in the PDF meta-information
 % called `pdfkeywords`.)
 \newcommand{\@keywords}{}
@@ -294,21 +307,21 @@
 
 % DOCVAR: submissionnotice (The submission notice is shown on the bottom of the
 % title page.)
-\newcommand{\@submissionnotice}{%
-\ifcam@firstyr
-First year report submitted
-\else
-This dissertation is submitted
-\fi
-\ifcam@submissiondate
-    on \@submissiondate{}
-\fi
-\ifcam@firstyr
-in partial fulfilment of the requirements
-\fi
-for the degree of Doctor of Philosophy%
-}
-\newcommand{\submissionnotice}[1]{\renewcommand{\@submissionnotice}{#1}}
+%\newcommand{\@submissionnotice}{%
+%\ifcam@firstyr
+%First year report submitted
+%\else
+%This dissertation is submitted
+%\fi
+%\ifcam@submissiondate
+%    on \@submissiondate{}
+%\fi
+%\ifcam@firstyr
+%in partial fulfilment of the requirements
+%\fi
+%for the degree of Doctor of Philosophy%
+%}
+%\newcommand{\submissionnotice}[1]{\renewcommand{\@submissionnotice}{#1}}
 
 % DOCVAR: collegeshield (The name of the file that contains the image of the
 % college's shield. If `collegeshield' is provided, it will be included in the
@@ -360,12 +373,12 @@ for the degree of Doctor of Philosophy%
 % (vertically).
 
 %% LOGO box
-\newlength{\cam@logorightnudge}
-\setlength{\cam@logorightnudge}{-0.5\paperwidth+12mm}
-\newsavebox{\cam@logo}
-\begin{lrbox}{\cam@logo}
-\hspace*{\cam@logorightnudge}\includegraphics[width=73mm]{CollegeShields/CUni}
-\end{lrbox}
+%\newlength{\cam@logorightnudge}
+%\setlength{\cam@logorightnudge}{-0.5\paperwidth+12mm}
+%\newsavebox{\cam@logo}
+%\begin{lrbox}{\cam@logo}
+%\hspace*{\cam@logorightnudge}\includegraphics[width=73mm]{CollegeShields/CUni}
+%\end{lrbox}
 
 %% THESIS TITLE box
 \newsavebox{\cam@title}
@@ -397,30 +410,29 @@ for the degree of Doctor of Philosophy%
 \begin{lrbox}{\cam@authorcollege}
     \begin{minipage}[c][\height][c]{.98\textwidth}
         \begin{center}
-        {\large \@author{}~\\[1ex]}
-        \ifcam@collegeshield%
-            \vspace{2mm}{\usebox{\cam@collegeshieldbox}}\\
-        \fi
-        \@college{}
+        {\large \@author{}~\\[2ex]}
+        {\large \@degreetitle{}~\\}
+        {\large \@degreeyear{}\\[6ex]}
+        {\large Supervisor: \@supervisor{} }
         \end{center}
     \end{minipage}
 \end{lrbox}
 
 %% SUBMISSION NOTICE box
-\newsavebox{\cam@submitnotice}
-\begin{lrbox}{\cam@submitnotice}
-    \begin{minipage}[c][\height][c]{.98\textwidth}
-        \begin{center}
-            \@submissionnotice{}
-        \end{center}
-    \end{minipage}
-\end{lrbox}
+%\newsavebox{\cam@submitnotice}
+%\begin{lrbox}{\cam@submitnotice}
+%    \begin{minipage}[c][\height][c]{.98\textwidth}
+%        \begin{center}
+%            \@submissionnotice{}
+%        \end{center}
+%    \end{minipage}
+%\end{lrbox}
 
 % Now calculate the exact free vertical space
 \newlength{\cam@titlepagevspace}
 \setlength{\cam@titlepagevspace}{\textheight%
-	-\totalheightof{\usebox{\cam@logo}}%
-	-\totalheightof{\usebox{\cam@submitnotice}}%
+%	-\totalheightof{\usebox{\cam@logo}}%
+%	-\totalheightof{\usebox{\cam@submitnotice}}%
 	-\totalheightof{\usebox{\cam@authorcollege}}%
 	-\totalheightof{\usebox{\cam@title}}}
 
@@ -433,13 +445,13 @@ for the degree of Doctor of Philosophy%
 %%%%%
 \begin{center}
 ~\vspace{.02\cam@titlepagevspace}\\
-{\usebox{\cam@logo}}\\
+%{\usebox{\cam@logo}}\\
 \vspace{.28\cam@titlepagevspace}
 {\usebox{\cam@title}}\\
 \vspace{.23\cam@titlepagevspace}
 {\usebox{\cam@authorcollege}}\\
-\null\vfill
-{\usebox{\cam@submitnotice}}
+%\null\vfill
+%{\usebox{\cam@submitnotice}}
 \end{center}
 \hypersetup{pdfsubject={\@subjectline},pdfkeywords={\@keywords}}
 \fi
@@ -479,16 +491,10 @@ for the degree of Doctor of Philosophy%
 \else
 \chapter*{Declaration}
 \thispagestyle{empty}
-This dissertation is the result of my own work and includes nothing which is the outcome
-of work done in collaboration except as declared in the Preface and specified in the text.
-It is not substantially the same as any that I have submitted, or am concurrently
-submitting, for a degree or diploma or other qualification at the University of Cambridge
-or any other University or similar institution except as declared in the Preface and
-specified in the text. I further state that no substantial part of my dissertation has
-already been submitted, or is being concurrently submitted, for any such degree, diploma
-or other qualification at the University of Cambridge or any other University or similar
-institution except as declared in the Preface and specified in the text.
-This dissertation does not exceed the prescribed limit of 60\,000 words.
+I declare that this dissertation has not been submitted as an exercise for a degree at this or any
+other university and that it is entirely my own work. I agree that the Library may lend or copy
+this dissertation on request.
+This dissertation does not exceed the prescribed limit of 15\,000 words.
 
 % Leaving some space for the signature:
 \vspace{15mm}
