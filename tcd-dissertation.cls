@@ -258,13 +258,24 @@
 %%
 %%%%%
 
-% DOCVAR: abstract (The text that will be instered into the abstract of the
+% DOCVAR: dedication (The text that will be inserted into the dedication of the
+% thesis.)
+%\newcommand{\@dedication}{}
+%\renewcommand{\dedication}[1]{\renewcommand{\@dedication}{#1}}
+
+% DOCVAR: foreword (The text that will be inserted into the foreword of the
+% thesis.)
+\newcommand{\foreword}{}
+\newcommand{\@foreword}{}
+\renewcommand{\foreword}[1]{\renewcommand{\@foreword}{#1}}
+
+% DOCVAR: abstract (The text that will be inserted into the abstract of the
 % thesis.)
 \newcommand{\@abstract}{}
 \renewcommand{\abstract}[1]{\renewcommand{\@abstract}{#1}}
 
-% DOCVAR: acknowledgements (The text that will be instered into the
-% acknowledgments of the thesis.)
+% DOCVAR: acknowledgements (The text that will be inserted into the
+% acknowledgements of the thesis.)
 \newcommand{\@acknowledgements}{}
 \newcommand{\acknowledgements}[1]{\renewcommand{\@acknowledgements}{#1}}
 
@@ -458,6 +469,37 @@
 
 % Epigraph on odd page. (optional)
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Declaration
+%%
+%%%%%
+\ifcam@techreport
+% Technical report doesn't need the declaration
+% (see http://www.cl.cam.ac.uk/techreports/submission.html).
+\else
+{\ifcam@firstyr
+% First yr report doesn't need the declaration
+\else
+\chapter*{Declaration}
+\thispagestyle{empty}
+I declare that this dissertation has not been submitted as an exercise for a degree at this or any
+other university and that it is entirely my own work. 
+
+I agree that the Library may lend or copy
+this dissertation on request.
+%This dissertation does not exceed the prescribed limit of 15\,000 words.
+
+% Leaving some space for the signature:
+\vspace{15mm}
+
+\begin{flushright}
+\@author{}\\
+\@date{}\\
+\end{flushright}
+\vfill
+\fi}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -479,34 +521,35 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% Declaration
+%% Table of contents, figures, symbols and glossary.
 %%
 %%%%%
-\ifcam@techreport
-% Technical report doesn't need the declaration
-% (see http://www.cl.cam.ac.uk/techreports/submission.html).
-\else
-{\ifcam@firstyr
-% First yr report doesn't need the declaration
-\else
-\chapter*{Declaration}
-\thispagestyle{empty}
-I declare that this dissertation has not been submitted as an exercise for a degree at this or any
-other university and that it is entirely my own work. I agree that the Library may lend or copy
-this dissertation on request.
-This dissertation does not exceed the prescribed limit of 15\,000 words.
 
-% Leaving some space for the signature:
-\vspace{15mm}
+% The following command prevents the page number to be displayed on the first
+% page of the TOC.
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\pagestyle{empty}
+\tableofcontents{}
 
-\begin{flushright}
-\@author{}\\
-\@date{}\\
-\end{flushright}
-\vfill
-\fi}
+\ifcam@glossary%
+    \cam@printthesisglossary
 \fi
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Foreword
+%%
+%%%%%
+
+\ifcam@firstyr
+% First yr report doesn't need a standalone abstract
+\else
+
+\chapter*{Foreword}
+\thispagestyle{empty}
+\@foreword{}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -520,22 +563,6 @@ This dissertation does not exceed the prescribed limit of 15\,000 words.
 \chapter*{Acknowledgements}
 \thispagestyle{empty}
 \@acknowledgements{}
-\fi
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% Table of contents, figures, symbols and glossary.
-%%
-%%%%%
-
-% The following command prevents the page number to be displayed on the first
-% page of the TOC.
-\addtocontents{toc}{\protect\thispagestyle{empty}}
-\pagestyle{empty}
-\tableofcontents{}
-
-\ifcam@glossary%
-    \cam@printthesisglossary
 \fi
 
 \cleardoublepage
